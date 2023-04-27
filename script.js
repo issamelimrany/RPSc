@@ -1,92 +1,57 @@
-
-// a function that give a random numb out of alist of number ( in this case 3 numbes ( 1,2 and 3)) 
-function random(numbers) {
-    return numbers[Math.floor(Math.random()*numbers.length)];
-}
-
-
-function getComputerChoice(ch){
-
-
-    if (ch == 1){
-        return "rock"
+function playGame() {
+    let userScore = 0;
+    let computerScore = 0;
+  
+    for (let i = 1; i <= 5; i++) {
+      // get user choice
+      let userChoice = prompt(`Round ${i}: Enter your choice: rock, paper, or scissors`);
+  
+      // validate user choice
+      if (
+        userChoice !== "rock" &&
+        userChoice !== "paper" &&
+        userChoice !== "scissors"
+      ) {
+        console.log("Invalid choice. Please enter rock, paper, or scissors.");
+        return;
+      }
+  
+      // computer makes a choice
+      let computerChoice = Math.random();
+      if (computerChoice < 0.33) {
+        computerChoice = "rock";
+      } else if (computerChoice < 0.66) {
+        computerChoice = "paper";
+      } else {
+        computerChoice = "scissors";
+      }
+  
+      // compare choices
+      if (userChoice === computerChoice) {
+        console.log("It's a tie!");
+      } else if (
+        (userChoice === "rock" && computerChoice === "scissors") ||
+        (userChoice === "paper" && computerChoice === "rock") ||
+        (userChoice === "scissors" && computerChoice === "paper")
+      ) {
+        console.log("You win this round!");
+        userScore++;
+      } else {
+        console.log("Computer wins this round!");
+        computerScore++;
+      }
     }
-    else if ( ch == 2 ){
-        return "paper"
+  
+    // determine the overall winner
+    if (userScore > computerScore) {
+      console.log(`You win the game! Final score: ${userScore} - ${computerScore}`);
+    } else if (userScore < computerScore) {
+      console.log(`Computer wins the game! Final score: ${userScore} - ${computerScore}`);
+    } else {
+      console.log(`It's a tie! Final score: ${userScore} - ${computerScore}`);
     }
-    else if ( ch == 3){
-        return "scissors"
-    }
-}
-
-
-
-
- function playround(humanchoice) {
-
-    if (humanchoice === getComputerChoice(random([1, 2, 3]))) {
-        return "Tie"
-
-    }
-
-    if (humanchoice === "rock") {
-        if (getComputerChoice(random([1, 2, 3])) === "scissors")
-            return "you won"
-    }
-    if (humanchoice === "paper") {
-        if (getComputerChoice(random([1, 2, 3])) === "rock")
-            return "you won"
-    }
-    if (humanchoice === "scissors") {
-        if (getComputerChoice(random([1, 2, 3])) === "paper")
-            return "you won"
-    }
-   
-    if (humanchoice === "scissors") {
-        if (getComputerChoice(random([1, 2, 3])) === "rock")
-            return "computer won"
-    }
-    if (humanchoice === "rock") {
-        if (getComputerChoice(random([1, 2, 3])) === "paper")
-            return "computer won"
-    }
-    if (humanchoice === "paper" ) {
-        if (getComputerChoice(random([1, 2, 3])) === "scissors")
-            return "computer won"
-    }
-
- }
-
-
-function game(){
-    var h = 0; 
-    var cm = 0; 
-    for (let i = 0; i < 2; i++) {
-        var humanchoice = prompt("Rock, paper or Scissors ? ").toLowerCase();
-        console.log(humanchoice);
-        console.log(playround(humanchoice));
-        console.log(humanchoice === "rock");
-        if ((playround(humanchoice)) == "Yon won"){
-            h++; 
-        }
-        else {
-            cm++; 
-        }
-        
-
-     }
-    
-    if ( h > cm){
-        console.log("the Human won in the five games"); 
-    }
-
-    else if ( cm > h ){ 
-        console.log("The computer won in the five games")
-    }
-
-    else {
-        console.log("The five games eneded in draw")
-    }
-}
-
-game()
+  }
+  
+  // call the function to play the game
+  playGame();
+  
